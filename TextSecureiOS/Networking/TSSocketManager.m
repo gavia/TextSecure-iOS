@@ -93,6 +93,9 @@
     NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
     
     NSDictionary *serializedMessage = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSString *ackedId = [serializedMessage objectForKey:@"id"];
+    [self.websocket send:[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:@{@"type":@"1", @"id":ackedId} options:0 error:nil] encoding:NSUTF8StringEncoding]];
+    DLog(@"ACK sent : %@", ackedId);
     
     
     if(![TSStorageMasterKey isStorageMasterKeyLocked]) {
@@ -104,9 +107,6 @@
     
     DLog(@"Got message : %@", [serializedMessage objectForKey:@"message"]);
     
-    NSString *ackedId = [serializedMessage objectForKey:@"id"];
-    [self.websocket send:[[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:@{@"type":@"1", @"id":ackedId} options:0 error:nil] encoding:NSUTF8StringEncoding]];
-    DLog(@"ACK sent : %@", ackedId);
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{

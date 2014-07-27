@@ -12,7 +12,8 @@
 
 typedef enum {
     TSMessageStateReceived,
-    TSMessageStateRead
+    TSMessageStateRead,
+    TSMessageStateBadEncrypted,
 } TSMessageIncomingState;
 
 /**

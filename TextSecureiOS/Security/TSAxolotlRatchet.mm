@@ -82,27 +82,35 @@
     
     BOOL validHMAC = [message verifyHMAC:messageKeys.macKey];
     
+    TSMessageIncoming *incomingMessage;
     if (!validHMAC) {
-        @throw [NSException exceptionWithName:@"Bad HMAC" reason:@"Bad HMAC!" userInfo:nil];
+#warning handle bad encrypted messages differently
+        incomingMessage = [[TSMessageIncoming alloc] initMessageWithContent:@"Bad Encrypted Message, Bad HMAC"
+                                                                                        sender:sessionRecord.contact.registeredID
+                                                                                          date:[NSDate date]
+                                                                                  attachements:nil
+                                                                                         group:nil
+                                                                                         state:TSMessageStateBadEncrypted];
+       // @throw [NSException exceptionWithName:@"Bad HMAC" reason:@"Bad HMAC!" userInfo:nil];
     }
-    
-    NSData* decryptedPushMessageContentData = [Cryptography decryptCTRMode:cipherTextMessage withKeys:messageKeys];
-    TSPushMessageContent *pushMessageContent = [[TSPushMessageContent alloc] initWithData:decryptedPushMessageContentData];
-    
-    if (pushMessageContent==nil) {
-        throw [NSException exceptionWithName:@"Error decrypting message" reason:@"" userInfo:nil];
+    else {
+        NSData* decryptedPushMessageContentData = [Cryptography decryptCTRMode:cipherTextMessage withKeys:messageKeys];
+        TSPushMessageContent *pushMessageContent = [[TSPushMessageContent alloc] initWithData:decryptedPushMessageContentData];
+        
+        if (pushMessageContent==nil) {
+            throw [NSException exceptionWithName:@"Error decrypting message" reason:@"" userInfo:nil];
+        }
+        
+        
+        TSGroup* group = pushMessageContent.groupContext ? [[TSGroup alloc] initWithGroupContext:pushMessageContent.groupContext] : nil;
+        
+        incomingMessage = [[TSMessageIncoming alloc] initMessageWithContent:pushMessageContent.body
+                                                                                        sender:sessionRecord.contact.registeredID
+                                                                                          date:[NSDate date]
+                                                                                  attachements:pushMessageContent.attachments
+                                                                                         group:group
+                                                                                         state:TSMessageStateReceived];
     }
-    
-    
-    TSGroup* group = pushMessageContent.groupContext ? [[TSGroup alloc] initWithGroupContext:pushMessageContent.groupContext] : nil;
-    
-    TSMessageIncoming *incomingMessage = [[TSMessageIncoming alloc] initMessageWithContent:pushMessageContent.body
-                                                                                    sender:sessionRecord.contact.registeredID
-                                                                                      date:[NSDate date]
-                                                                              attachements:pushMessageContent.attachments
-                                                                                     group:group
-                                                                                     state:TSMessageStateReceived];
-    
     [sessionRecord removePendingPrekey];
     [TSMessagesDatabase storeSession:sessionRecord];
 
