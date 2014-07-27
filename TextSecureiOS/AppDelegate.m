@@ -35,18 +35,6 @@
 #define firstLaunchKey @"FirstLaunch"
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    for (id secclass in @[
-//                          (__bridge id)kSecClassGenericPassword,
-//                          (__bridge id)kSecClassInternetPassword,
-//                          (__bridge id)kSecClassCertificate,
-//                          (__bridge id)kSecClassKey,
-//                          (__bridge id)kSecClassIdentity]) {
-//        NSMutableDictionary *query = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-//                                      secclass, (__bridge id)kSecClass,
-//                                      nil];
-//        
-//        SecItemDelete((__bridge CFDictionaryRef)query);        
-//    }
     // UIAppearance proxy setup
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor TSBlueBarColor]} forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor TSLightTextColor]} forState:UIControlStateDisabled];
