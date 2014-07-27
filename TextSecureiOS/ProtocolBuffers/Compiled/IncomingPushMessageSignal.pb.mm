@@ -2,7 +2,7 @@
 // source: IncomingPushMessageSignal.proto
 
 #define INTERNAL_SUPPRESS_PROTOBUF_FIELD_DEPRECATION
-#include "IncomingPushMessageSignal.pb.hh"
+#include "IncomingPushMessageSignal.pb.h"
 
 #include <algorithm>
 
@@ -86,13 +86,14 @@ void protobuf_AddDesc_IncomingPushMessageSignal_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\037IncomingPushMessageSignal.proto\022\ntexts"
-    "ecure\"\207\002\n\031IncomingPushMessageSignal\0228\n\004t"
+    "ecure\"\224\002\n\031IncomingPushMessageSignal\0228\n\004t"
     "ype\030\001 \001(\0162*.textsecure.IncomingPushMessa"
     "geSignal.Type\022\016\n\006source\030\002 \001(\t\022\024\n\014sourceD"
     "evice\030\007 \001(\r\022\r\n\005relay\030\003 \001(\t\022\021\n\ttimestamp\030"
-    "\005 \001(\004\022\017\n\007message\030\006 \001(\014\"W\n\004Type\022\013\n\007UNKNOW"
+    "\005 \001(\004\022\017\n\007message\030\006 \001(\014\"d\n\004Type\022\013\n\007UNKNOW"
     "N\020\000\022\016\n\nCIPHERTEXT\020\001\022\020\n\014KEY_EXCHANGE\020\002\022\021\n"
-    "\rPREKEY_BUNDLE\020\003\022\r\n\tPLAINTEXT\020\004", 311);
+    "\rPREKEY_BUNDLE\020\003\022\r\n\tPLAINTEXT\020\004\022\013\n\007RECEI"
+    "PT\020\005", 324);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "IncomingPushMessageSignal.proto", &protobuf_RegisterTypes);
   IncomingPushMessageSignal::default_instance_ = new IncomingPushMessageSignal();
@@ -120,6 +121,7 @@ bool IncomingPushMessageSignal_Type_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
@@ -132,6 +134,7 @@ const IncomingPushMessageSignal_Type IncomingPushMessageSignal::CIPHERTEXT;
 const IncomingPushMessageSignal_Type IncomingPushMessageSignal::KEY_EXCHANGE;
 const IncomingPushMessageSignal_Type IncomingPushMessageSignal::PREKEY_BUNDLE;
 const IncomingPushMessageSignal_Type IncomingPushMessageSignal::PLAINTEXT;
+const IncomingPushMessageSignal_Type IncomingPushMessageSignal::RECEIPT;
 const IncomingPushMessageSignal_Type IncomingPushMessageSignal::Type_MIN;
 const IncomingPushMessageSignal_Type IncomingPushMessageSignal::Type_MAX;
 const int IncomingPushMessageSignal::Type_ARRAYSIZE;

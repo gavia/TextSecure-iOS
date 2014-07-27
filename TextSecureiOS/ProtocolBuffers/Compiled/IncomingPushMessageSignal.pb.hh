@@ -41,11 +41,12 @@ enum IncomingPushMessageSignal_Type {
   IncomingPushMessageSignal_Type_CIPHERTEXT = 1,
   IncomingPushMessageSignal_Type_KEY_EXCHANGE = 2,
   IncomingPushMessageSignal_Type_PREKEY_BUNDLE = 3,
-  IncomingPushMessageSignal_Type_PLAINTEXT = 4
+  IncomingPushMessageSignal_Type_PLAINTEXT = 4,
+  IncomingPushMessageSignal_Type_RECEIPT = 5
 };
 bool IncomingPushMessageSignal_Type_IsValid(int value);
 const IncomingPushMessageSignal_Type IncomingPushMessageSignal_Type_Type_MIN = IncomingPushMessageSignal_Type_UNKNOWN;
-const IncomingPushMessageSignal_Type IncomingPushMessageSignal_Type_Type_MAX = IncomingPushMessageSignal_Type_PLAINTEXT;
+const IncomingPushMessageSignal_Type IncomingPushMessageSignal_Type_Type_MAX = IncomingPushMessageSignal_Type_RECEIPT;
 const int IncomingPushMessageSignal_Type_Type_ARRAYSIZE = IncomingPushMessageSignal_Type_Type_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* IncomingPushMessageSignal_Type_descriptor();
@@ -118,6 +119,7 @@ class IncomingPushMessageSignal : public ::google::protobuf::Message {
   static const Type KEY_EXCHANGE = IncomingPushMessageSignal_Type_KEY_EXCHANGE;
   static const Type PREKEY_BUNDLE = IncomingPushMessageSignal_Type_PREKEY_BUNDLE;
   static const Type PLAINTEXT = IncomingPushMessageSignal_Type_PLAINTEXT;
+  static const Type RECEIPT = IncomingPushMessageSignal_Type_RECEIPT;
   static inline bool Type_IsValid(int value) {
     return IncomingPushMessageSignal_Type_IsValid(value);
   }
