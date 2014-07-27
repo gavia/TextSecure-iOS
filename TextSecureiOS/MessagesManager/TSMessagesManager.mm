@@ -149,7 +149,11 @@
     NSLog(@"push message bytes %lu",(unsigned long) decryptedPayload.length);
 
     TSMessageSignal *signal = [[TSMessageSignal alloc] initWithTextSecureProtocolData:decryptedPayload];
-
+    if(signal.contentType==TSDeliveryReceiptMessageType) {
+#warning handle delivery receipts
+        NSLog(@"DELIVERY RECEIPT");
+        return;
+    }
     if (![TSMessagesDatabase contactForRegisteredID:signal.source]) {
         [[[TSContact alloc] initWithRegisteredID:signal.source relay:nil] save];
     }

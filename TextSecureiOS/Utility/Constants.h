@@ -52,6 +52,8 @@ typedef NS_ENUM(NSInteger, TSWhisperMessageType) {
     TSIgnoreOnIOSWhisperMessageType=2, // on droid this is the prekey bundle message irrelevant for us
     TSPreKeyWhisperMessageType = 3,
     TSUnencryptedWhisperMessageType = 4,
+    TSDeliveryReceiptMessageType = 5
+
 };
 
 typedef NS_ENUM(NSInteger, TSMACType) {
