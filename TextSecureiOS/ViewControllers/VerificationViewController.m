@@ -236,10 +236,14 @@
             loopLength = nonFormattedstring.length;
         }
         
+        BOOL insertedNewDigit = NO;
+        
         for (NSUInteger i = 0; i < loopLength; i++) {
             if (i != ([self location:range.location ofCleanedStringOf:self.phoneNumber.text])) {
-                formattedString = [self.numberFormatter inputDigit:[nonFormattedstring substringWithRange:NSMakeRange(i, 1)]];
+                // This puts old numbers back into the string
+                formattedString = [self.numberFormatter inputDigit:[nonFormattedstring substringWithRange:NSMakeRange((insertedNewDigit ? i-1 : i), 1)]];
             } else {
+                // This puts new numbers into the string, into the correct order
                 // if we are at the replace or add position, we need to evaluate what to do
                 
                 if ([string isEqualToString:@""]) {
@@ -247,12 +251,15 @@
                 }
                 else{
                     formattedString = [self.numberFormatter inputDigit:string];
+                    insertedNewDigit = YES;
                 }
             }
         }
         
         self.phoneNumber.text = [self cleanPrefixOfString:formattedString];
         
+        // TODO: When you insert or delete a character from anywhere that isn't at the end of the text field
+        // the cursor automatically moves to the end. This needs to be fixed!
         
         // We detect if the number is a valid number. If it is, we show the next button.
         
